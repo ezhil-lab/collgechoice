@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import data from "./cutoff.json";
 import "./index.css";
+import Multiselect from "multiselect-react-dropdown";
 
 const categories = ["OC", "BC", "BCM", "MBC", "SC", "SCA", "ST"];
 
@@ -179,20 +180,15 @@ function App() {
             <label className="block text-sm font-medium mb-1">
               Branches (Optional)
             </label>
-            <select
-              multiple
-              value={branches}
-              onChange={(e) =>
-                setBranches(
-                  Array.from(e.target.selectedOptions, (o) => o.value)
-                )
-              }
-              className="border p-2 w-full h-40 rounded"
-            >
-              {allBranches.map((b) => (
-                <option key={b}>{b}</option>
-              ))}
-            </select>
+            <Multiselect
+              isObject={false}
+              options={allBranches}
+              selectedValues={branches}
+              onSelect={(selectedList) => setBranches(selectedList)}
+              onRemove={(selectedList) => setBranches(selectedList)}
+              placeholder="Select Branches"
+              className="w-full"
+            />
           </div>
         </div>
 
